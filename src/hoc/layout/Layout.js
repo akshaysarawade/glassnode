@@ -5,13 +5,17 @@ import { Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 import asyncComponent from "../asyncComponent/asyncComponent";
 import Header from "../../components/common/header/Header";
-import { setRowCount } from "../../store/actions/actions";
+import { setRowCount, fetchCurrencies } from "../../store/actions/actions";
 
 const AsyncMarketOverview = asyncComponent(() => {
   return import("../../components/marketOverview/MarketOverview");
 });
 
 class Layout extends Component {
+  componentDidMount() {
+    this.props.fetchCurrencies();
+  }
+
   /**
    * drop down change handler
    * call the setRowCount action to update the row count in state
@@ -19,6 +23,7 @@ class Layout extends Component {
   dropdownChange = rowCount => {
     if (this.props.rowCount !== rowCount) {
       this.props.setRowCount(rowCount);
+      this.props.fetchCurrencies(rowCount);
     }
   };
 
@@ -32,7 +37,10 @@ class Layout extends Component {
           path="/"
           exact
           render={() => (
-            <AsyncMarketOverview currencyData={this.props.currencyData} />
+            <AsyncMarketOverview
+              rowCount={this.props.rowCount}
+              currencyData={this.props.currencyData}
+            />
           )}
         />
         {/* <Route path="/auth" component={asyncAuth} /> */}
@@ -59,7 +67,8 @@ class Layout extends Component {
 Layout.propTypes = {
   rowCount: PropTypes.number.isRequired,
   setRowCount: PropTypes.func.isRequired,
-  currencyData: PropTypes.shape({})
+  fetchCurrencies: PropTypes.func.isRequired
+  // currencyData: PropTypes.shape({})
 };
 
 /**
@@ -79,7 +88,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      setRowCount
+      setRowCount,
+      fetchCurrencies
     },
     dispatch
   );

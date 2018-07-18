@@ -2,15 +2,26 @@ import * as actionTypes from "./actionTypes";
 
 /**
  * fetch currency data from API
- * it takes param as the row count
- * @param {*} filter
+ * rowCount is the record count
+ * @param {*} rowCount
  */
-export const fetchCurrencies = filter => {
+export const fetchCurrencies = rowCount => {
   return {
     type: actionTypes.FETCH_CURRENCIES,
-    filter
+    rowCount
   };
 };
+
+/**
+ * update the currencies data, fetched from the API in the surrencyReducer
+ * @param {*} data
+ */
+export const updateCurrencies = data => {
+  return {
+    type: actionTypes.UPDATE_CURRENCIES,
+    data
+  }
+}
 
 /**
  * to set row count in state

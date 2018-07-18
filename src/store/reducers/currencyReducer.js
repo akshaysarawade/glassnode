@@ -20,6 +20,13 @@ const currencyReducer = (state = initialState, action) => {
             ...state,
             rowCount: action.rowCount
           };
+
+    case actionTypes.UPDATE_CURRENCIES:
+      return {
+        ...state,
+        currencyData: action.data.data
+      };
+
     default:
       return state;
   }
