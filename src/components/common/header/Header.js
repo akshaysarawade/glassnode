@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar, NavItem, Nav, MenuItem, NavDropdown } from "react-bootstrap";
+import { NavLink, Link } from "react-router-dom";
 
 const Header = props => {
   return (
@@ -7,25 +8,18 @@ const Header = props => {
       <Navbar collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <span className="blue-color">Glassnode</span>
+          <NavLink to="/"><span className="blue-color">Glassnode</span></NavLink>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavItem
-              onSelect={k => console.log("selected: ", k)}
-              eventKey="marketOverview"
-              href="#"
-            >
-              Market Overview
+            <NavItem eventKey="marketOverview" href="#">
+              <NavLink to="/">Market Overview</NavLink>
             </NavItem>
-            <NavItem
-              onSelect={k => console.log("selected: ", k)}
-              eventKey="liquidity"
-              href="#"
-            >
-              Liquidity
+
+            <NavItem eventKey="liquidity" href="#">
+              <NavLink to="/liquidity">Liquidity</NavLink>
             </NavItem>
             <NavDropdown
               onSelect={rowCount => props.dropdownChange(rowCount)}

@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -20,9 +20,14 @@
 
 .App-intro {
   font-size: large;
-}
+} */
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.blue-color {
+  color: #265a88;
+}
+a {
+  color: #777;
+}
+a, a:hover, a:active, a:visited, a:focus {
+  text-decoration: none;
 }

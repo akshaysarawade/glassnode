@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Route, Switch } from "react-router-dom";
+import { withRouter, Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 import asyncComponent from "../asyncComponent/asyncComponent";
 import Header from "../../components/common/header/Header";
@@ -9,6 +9,10 @@ import { setRowCount, fetchCurrencies } from "../../store/actions/actions";
 
 const AsyncMarketOverview = asyncComponent(() => {
   return import("../../components/marketOverview/MarketOverview");
+});
+
+const AsyncScatterChart = asyncComponent(() => {
+  return import("../../components/common/charts/ScatterPlotChart");
 });
 
 class Layout extends Component {
@@ -43,12 +47,15 @@ class Layout extends Component {
             />
           )}
         />
-        {/* <Route path="/auth" component={asyncAuth} /> */}
         <Route
           path="/liquidity"
-          component={() => <h1>liquidity component</h1>}
+          render={() => (
+            <AsyncScatterChart
+              rowCount={this.props.rowCount}
+              currencyData={this.props.currencyData}
+            />
+          )}
         />
-        {/* <Route path="/abc" render={()=><TestWidget num="2" someProp={100}/>}/> */}
         <Route component={() => <h1>404 - Page not found</h1>} />
       </Switch>
     );
@@ -68,7 +75,6 @@ Layout.propTypes = {
   rowCount: PropTypes.number.isRequired,
   setRowCount: PropTypes.func.isRequired,
   fetchCurrencies: PropTypes.func.isRequired
-  // currencyData: PropTypes.shape({})
 };
 
 /**
@@ -95,7 +101,9 @@ const mapDispatchToProps = dispatch => {
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Layout);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Layout)
+);
