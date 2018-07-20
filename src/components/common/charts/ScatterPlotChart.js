@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import ReactHighcharts from "react-highcharts";
-import Highcharts from 'highcharts' //core
-import HC_more from 'highcharts/highcharts-more' //module
-HC_more(Highcharts) //init module
+import Highcharts from "highcharts"; //core
+import HC_more from "highcharts/highcharts-more"; //module
+HC_more(Highcharts); //init module
 
 class ScatterPlotChart extends Component {
   /**
@@ -11,15 +11,15 @@ class ScatterPlotChart extends Component {
    */
   generateChartData(currencyData) {
     const chartData = [];
-    currencyData.map((data) => {
+    currencyData.map(data => {
       const usd = data.quotes && data.quotes.USD;
       let chartObj = {};
       //  convert the numbers into millions to 2 decimals
-      let marketCap = usd && usd.market_cap && usd.market_cap/1000000;
+      let marketCap = usd && usd.market_cap && usd.market_cap / 1000000;
       if (marketCap) {
         chartObj.x = parseFloat(marketCap.toFixed(2));
       }
-      let volume24 = usd && usd.volume_24h && usd.volume_24h/1000000;
+      let volume24 = usd && usd.volume_24h && usd.volume_24h / 1000000;
       if (volume24) {
         chartObj.y = parseFloat(volume24.toFixed(2));
       }
@@ -43,7 +43,10 @@ class ScatterPlotChart extends Component {
       chart: {
         type: "bubble",
         plotBorderWidth: 1,
-        zoomType: "xy"
+        zoomType: "xy",
+        spacingLeft: 20,
+        spacingRight: 20,
+        height: 500
       },
 
       legend: {
@@ -55,13 +58,18 @@ class ScatterPlotChart extends Component {
       },
 
       xAxis: {
+        tickPixelInterval: 150,
         gridLineWidth: 1,
-        angle: 30,
         title: {
-          text: "Market Cap"
+          text: "Market Cap",
+          style: {
+            color: "#6aa4d8",
+            "font-size": 13
+          }
         },
         labels: {
-          format: "$ {value}M"
+          format: "$ {value}M",
+          align: "left"
         }
       },
 
@@ -69,7 +77,11 @@ class ScatterPlotChart extends Component {
         startOnTick: false,
         endOnTick: false,
         title: {
-          text: "Volume"
+          text: "Volume",
+          style: {
+            color: "#6aa4d8",
+            "font-size": 13
+          }
         },
         labels: {
           format: "$ {value}M"
@@ -77,6 +89,7 @@ class ScatterPlotChart extends Component {
         maxPadding: 0.2
       },
 
+      //  custom tooltip to show on hover of a point
       tooltip: {
         useHTML: true,
         headerFormat: "<table>",
@@ -97,16 +110,19 @@ class ScatterPlotChart extends Component {
           }
         }
       },
-
       series: [
         {
           data: chartData
         }
-      ]
+      ],
+      //  remove the highcharts.com link from the chart
+      credits: {
+        enabled: false
+      }
     };
     return (
-      <div>
-        <ReactHighcharts config={config} highcharts={Highcharts}/>
+      <div className="chart-container">
+        <ReactHighcharts config={config} highcharts={Highcharts} />
       </div>
     );
   }

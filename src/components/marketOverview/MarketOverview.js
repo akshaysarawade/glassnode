@@ -5,7 +5,7 @@ import "react-table/react-table.css";
 class MarketOverview extends Component {
   render() {
     return (
-      <div>
+      <div className="table-container">
         <ReactTable
           data={this.props.currencyData}
           noDataText="No records found!"
