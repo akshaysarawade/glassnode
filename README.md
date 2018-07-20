@@ -1,11 +1,13 @@
 --------------------
 Steps to run the app
 --------------------
-1. Go to the vrypto-currency-app folder and hit "npm install"
-2. After step 1 is complete, hit "npm start"
-3. Open a tab in your browser and hit "http://localhost:3000"
+1. Go to the glassnode folder and hit "npm install"
+2. Hit "npm start"
+3. Open a browser and hit "http://localhost:3000"
 
+--------------------
 Problem Statement:
+--------------------
 https://github.com/glassnode/code-challenges/blob/master/frontend-engineer-challenge.md
 
 
