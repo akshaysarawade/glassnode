@@ -9,17 +9,21 @@ export function* fetchCurrenciesSaga(action) {
   if (action.rowCount && action.rowCount !== "all") {
     url = `${url}&limit=${action.rowCount}`;
   }
+
   try {
+    yield put(actions.toggleLoader(true));
     const response = yield axios.get(url, {
       headers: { "Access-Control-Allow-Origin": "*" }
     });
     if (response.status === 200) {
       yield put(actions.updateCurrencies(response.data));
+      yield put(actions.toggleErrorMessage(false));
     } else {
       console.log("Error: ", response);
-      //  TODO: handle error
     }
+    yield put(actions.toggleLoader(false));
   } catch (error) {
-    // yield put(actions.error(error.response.data.error));
+    yield put(actions.toggleErrorMessage(true));
+    yield put(actions.toggleLoader(false));
   }
 }

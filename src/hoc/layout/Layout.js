@@ -44,6 +44,8 @@ class Layout extends Component {
             <AsyncMarketOverview
               rowCount={this.props.rowCount}
               currencyData={this.props.currencyData}
+              showLoader={this.props.showLoader}
+              showError={this.props.showError}
             />
           )}
         />
@@ -62,6 +64,8 @@ class Layout extends Component {
     return (
       <div>
         <Header dropdownChange={this.dropdownChange} />
+        {this.props.showLoader && <p>Loading...</p>}
+        {this.props.showError && <p>Error fetching data from server></p>}
         <main>{routes}</main>
       </div>
     );
@@ -74,7 +78,8 @@ class Layout extends Component {
 Layout.propTypes = {
   rowCount: PropTypes.number.isRequired,
   setRowCount: PropTypes.func.isRequired,
-  fetchCurrencies: PropTypes.func.isRequired
+  fetchCurrencies: PropTypes.func.isRequired,
+  showLoader: PropTypes.bool.isRequired
 };
 
 /**
@@ -84,7 +89,9 @@ Layout.propTypes = {
 const mapStateToProps = state => {
   return {
     rowCount: state.currencyReducer.rowCount,
-    currencyData: state.currencyReducer.currencyData
+    currencyData: state.currencyReducer.currencyData,
+    showLoader: state.currencyReducer.showLoader,
+    showError: state.currencyReducer.showError
   };
 };
 

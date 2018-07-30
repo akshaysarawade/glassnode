@@ -23,7 +23,7 @@ class ScatterPlotChart extends Component {
       if (volume24) {
         chartObj.y = parseFloat(volume24.toFixed(2));
       }
-      chartObj.z = usd && usd.percent_change_24h;
+      chartObj.z = (usd && usd.percent_change_24h && usd.percent_change_24h*usd.percent_change_24h);
       chartObj.symbol = data.symbol;
       chartObj.name = data.name;
       chartData.push(chartObj);
@@ -48,7 +48,10 @@ class ScatterPlotChart extends Component {
         spacingRight: 20,
         height: 500
       },
-
+      bubble: {
+        minSize: 2,
+        maxSize: 10
+      },
       legend: {
         enabled: false
       },
@@ -59,6 +62,7 @@ class ScatterPlotChart extends Component {
 
       xAxis: {
         tickPixelInterval: 150,
+        type: "logarithmic",
         gridLineWidth: 1,
         title: {
           text: "Market Cap",
@@ -75,6 +79,7 @@ class ScatterPlotChart extends Component {
 
       yAxis: {
         startOnTick: false,
+        type: "logarithmic",
         endOnTick: false,
         title: {
           text: "Volume",

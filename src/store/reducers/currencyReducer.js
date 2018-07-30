@@ -2,7 +2,8 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   currencyData: {},
-  rowCount: 100
+  rowCount: 100,
+  showLoader: false
 };
 
 const currencyReducer = (state = initialState, action) => {
@@ -26,6 +27,18 @@ const currencyReducer = (state = initialState, action) => {
         ...state,
         currencyData: action.data.data
       };
+
+    case actionTypes.TOGGLE_LOADER:
+    return {
+      ...state,
+      showLoader: action.data
+    };
+
+    case actionTypes.TOGGLE_ERROR_MESSAGE:
+    return {
+      ...state,
+      showError: action.data
+    };
 
     default:
       return state;

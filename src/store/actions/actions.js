@@ -33,3 +33,17 @@ export const setRowCount = rowCount => {
     rowCount
   };
 };
+
+export const toggleLoader = data => {
+  return {
+    type: actionTypes.TOGGLE_LOADER,
+    data
+  }
+}
+
+export const toggleErrorMessage = data => {
+  return {
+    type: actionTypes.TOGGLE_ERROR_MESSAGE,
+    data
+  }
+}
